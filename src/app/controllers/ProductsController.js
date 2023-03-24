@@ -26,7 +26,6 @@ class ProductsController {
     }
 
     async detailProduct(req, res, next) {
-        console.log('id user: ', req.params._id);
         try {
             const product = await Product.findById(req.params._id).exec();
             const objectFinded = getSingleObject(product);
@@ -57,7 +56,7 @@ class ProductsController {
 
     store(req, res, next) {
         const formData = req.body;
-        formData.image = `/image/product/${req.file.originalname}`
+        formData.image = `/image/${req.file.originalname}`
         formData.price = `${req.body.price} đ`
         const product = new Product(formData);
         product.save()
@@ -71,20 +70,18 @@ class ProductsController {
             formData.price = `${req.body.price} đ`;
         }
         if (req.file !== undefined && req.file !== null) {
-            formData.image = `/image/product/${req.file.originalname}`
+            formData.image = `/image/${req.file.originalname}`;
           } else {
-            formData.image = formData.old
+            formData.image = formData.old;
           }
         delete formData.old;
-        const id_product = req.path.replace('/', '');
-        Product.updateOne({ _id: id_product }, formData)
+        Product.updateOne({ _id: req.params._id }, formData)
             .then(() => res.redirect('/products'))
             .catch(next);
     }
 
     delete(req, res, next) {
-        const id_product = req.path.replace('/', '');
-        Product.deleteOne({ _id: id_product })
+        Product.deleteOne({ _id: req.params._id })
             .then(() => res.redirect('/products'))
             .catch(next);
     }

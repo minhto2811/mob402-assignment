@@ -2,7 +2,7 @@ const multer = require('multer');
 const path = require('path');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../public/image/product'));
+        cb(null, path.join(__dirname, '../public/image'));
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname);
@@ -10,14 +10,11 @@ const storage = multer.diskStorage({
 })
 
 const imageFilter = function (req, file, cb) {
-    if (req.originalUrl == '/products/store') {
-        if (file.mimetype.startsWith('image/')) {
-            cb(null, true);
-        } else {
-            cb(new Error('Tệp không phải là hình ảnh!'), false);
-        }
+
+    if (file.mimetype.startsWith('image/')) {
+        cb(null, true);
     } else {
-        cb(null, false);
+        cb(new Error('Tệp không phải là hình ảnh!'), false);
     }
 
 };
@@ -25,7 +22,7 @@ const imageFilter = function (req, file, cb) {
 const upload = multer({
     storage: storage
     , fileFilter: imageFilter,
-    limits: { fileSize: 1 * 1024 * 1024 }
+    limits: { fileSize: 2 * 1024 * 1024 }
 });
 
 module.exports = upload;
