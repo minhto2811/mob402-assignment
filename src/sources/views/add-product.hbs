@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>Thêm sản phẩm mới</h2>
+  <form method="post" action="/products/store">
+    <div class="form-group">
+      <label for="ma-sp">Mã sản phẩm:</label>
+      <input type="text" class="form-control my-2" id="ma-sp">
+    </div>
+    <div class="form-group">
+      <label for="ten-sp">Tên sản phẩm:</label>
+      <input type="text" class="form-control my-2" id="ten-sp">
+    </div>
+    <div class="form-group">
+      <label for="don-gia">Đơn giá:</label>
+      <input type="text" class="form-control my-2" id="don-gia">
+    </div>
+    <div class="form-group">
+      <label for="hinh-anh">Hình ảnh:</label>
+      <input type="file" class="form-control my-2-file" id="hinh-anh">
+    </div>
+    <div class="form-group">
+      <label for="mau-sac">Màu sắc:</label>
+      <input type="text" class="form-control my-2" id="mau-sac">
+    </div>
+    <div class="form-group">
+      <label for="loai-sp">Loại sản phẩm:</label>
+      <select class="form-control my-2" id="loai-sp">
+        <option>Áo sơ mi</option>
+        <option>Áo phông</option>
+        <option>Quần jean</option>
+        <option>Quần kaki</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary my-2">Thêm sản phẩm</button>
+  </form>
+</div>

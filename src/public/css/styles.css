@@ -1,0 +1,12 @@
+.navbar{
+    height: 50px;
+}
+.btn-edit{
+    text-decoration: none;
+    color: white;
+}
+.label-id{
+    font-size: large;
+    font-weight: bolder;
+    background-color: aquamarine;
+}

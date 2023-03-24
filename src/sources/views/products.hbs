@@ -1,0 +1,40 @@
+<div class="container text-center">
+
+    <h1 class="my-4">List of products</h1>
+     <a href="products/add-product">Add new product</a>
+
+    <table class="table table-striped table-bordered col-12 my-4">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Unit price</th>
+                <th>Image</th>
+                <th>Color</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {{#each products}}
+            <tr class="my-3">
+                <td>{{this.code}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.price}}</td>
+                <td><img src="{{this.image}}" alt="Lỗi hình ảnh" width="60px" height="60px"></td>
+                <td>{{this.color}}</td>
+                <td>{{this.type}}</td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm mr-2">Delete</button>
+                    <button type="button" class="btn btn-primary btn-sm ms-3"><a href="products/{{this._id}}"
+                            class="btn-edit">Edit</a></button>
+                </td>
+            </tr>
+            {{/each}}
+
+        </tbody>
+    </table>
+
+   
+</div>
