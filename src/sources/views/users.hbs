@@ -15,24 +15,26 @@
     <table class="table table-striped table-bordered">
         <thead class="bg-dark-subtle">
             <tr>
+                <th>#</th>
                 <th>ID</th>
-                <th>Name</th>
+                <th>Họ tên</th>
                 <th>Email</th>
-                <th>Action</th>
+                <th>Hành động</th>
             </tr>
         </thead>
         <tbody>
 
             {{#each users}}
             <tr>
+                <td>{{sum @index 1}}</td>
                 <td>{{this._id}}</td>
                 <td>{{this.fullname}}</td>
                 <td>{{this.email}}</td>
                 <td>
                     <!-- Các nút xóa, sửa user -->
-                    <button type="button" class="btn btn-danger btn-sm mr-2">Delete</button>
+                    <button type="button" class="btn btn-danger btn-sm mr-2">Xóa</button>
                     <button type="button" class="btn btn-primary btn-sm ms-3"><a class="btn-edit"
-                            href="users/{{this._id}}">Edit</a></button>
+                            href="users/{{this._id}}">Sửa</a></button>
                 </td>
             </tr>
             {{/each}}

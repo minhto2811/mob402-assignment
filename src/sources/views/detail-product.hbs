@@ -1,37 +1,44 @@
 <div class="container mt-2">
     <div class="col-sm-4 col-lg-10 mx-auto">
-        <form>
+        <form method="post" action="/products/{{product._id}}?_method=PUT" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">Code</label>
                 <input type="text" class="form-control my-2" id="code" name="code" value="{{product.code}}"
-                    placeholder="{{product.code}}" required>
+                    placeholder="Không được để trống!" required>
             </div>
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Tên sản phẩm</label>
                 <input type="text" class="form-control my-2" id="name" name="name" value="{{product.name}}"
-                    placeholder="{{product.name}}" required>
+                    placeholder="Không được để trống!" required>
             </div>
             <div class="form-group">
-                <label for="price">Price</label>
+                <label for="price">Đơn giá</label>
                 <input type="text" class="form-control my-2" id="price" name="price" value="{{product.price}}"
-                    placeholder="{{product.price}}" required>
+                    placeholder="Không được để trống!" required>
             </div>
-            <label for="image">Image</label>
+            <label for="image">Hình ảnh</label>
             <div class="form-group">
                 <img class="my-2" src="{{product.image}}" alt="Lỗi hiển thị" width="100px" height="100px" />
-                <input type="file" class="form-control my-2" id="image" name="image" required>
+                <input type="file" class="form-control my-2" id="image" name="image">
             </div>
             <div class="form-group">
-                <label for="color">Color</label>
+                <label for="color">Màu sắc</label>
                 <input type="text" class="form-control my-2" id="color" name="color" value="{{product.color}}"
-                    placeholder="{{product.color}}" required>
+                    placeholder="Không được để trống!" required>
             </div>
             <div class="form-group">
-                <label for="type">Type</label>
-                <input type="text" class="form-control my-2" id="type" name="type" value="{{product.type}}"
-                    placeholder="{{product.type}}" required>
+                <label for="type">Loại</label>
+                <select id="type" name="type" class="form-control my-2">
+                    {{#each selectedOption}}
+                    <option value="{{@key}}" {{#if this}}selected{{/if}}>{{@key}}</option>
+                    {{/each}}
+                </select>
             </div>
+            <div class="form-group" hidden>
+                <input type="text" name="old" value="{{product.image}}">
+            </div>
+            <button type="submit" class="btn btn-primary my-2">Update</button>
         </form>
-        <button type="submit" class="btn btn-primary my-2">Update</button>
+
     </div>
 </div>

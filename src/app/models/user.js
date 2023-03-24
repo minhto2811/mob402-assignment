@@ -10,6 +10,8 @@ const User = new mongoose.Schema({
     phone: { type: String, minLength: 10, maxLength: 11 },
     address: { type: String },
     date: { type: String },
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('User', User);
