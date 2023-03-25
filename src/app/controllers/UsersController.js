@@ -1,13 +1,15 @@
 const User = require('../models/user');
 
-const { getArrayObjects } = require('../../util/mongoose');
-const { getSingleObject } = require('../../util/mongoose');
+const { convertleObject } = require('../../util/mongoose');
+
+var allUser;
 
 class UserController {
     index(req, res, next) {
         User.find({})
             .then(users => {
-                res.render('users', { layout: 'home', users: getArrayObjects(users) });
+                allUser = convertleObject(users);
+                res.render('users', { layout: 'home', users: allUser });
             })
             .catch(next);
     }
@@ -16,8 +18,8 @@ class UserController {
         const id = req.params._id;
         try {
             const user = await User.findById(id).exec();
-            console.log(getSingleObject(user));
-            res.render('detail-user', { layout: 'home', user: getSingleObject(user) });
+            console.log(convertleObject(user));
+            res.render('detail-user', { layout: 'home', user: convertleObject(user) });
         } catch (err) {
             console.error(err);
             res.send(err);
@@ -45,12 +47,18 @@ class UserController {
     }
 
     async searchUser(req, res, next) {
-        const query = req.body.email.toString();
-        await User.findOne({ email: query })
+        const query = req.body.email;
+        await User.find({ email: query })
             .then(users => {
-                console.log(getSingleObject(users));
-                res.render('users', { layout: 'home', users: getSingleObject(users) });
+                if (users.length === 0) {
+                    res.render('users', { layout: 'home', users: allUser });
+                } else {
+                    res.render('users', { layout: 'home', users: convertleObject(users), valueSearch: req.body.email });
+                }
+
+
             }).catch(next);
+
     }
 
 }

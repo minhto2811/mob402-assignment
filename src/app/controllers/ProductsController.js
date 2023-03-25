@@ -1,15 +1,14 @@
 const Product = require('../models/product');
 const Type = require('../models/type');
-const { getArrayObjects } = require('../../util/mongoose');
-const { getSingleObject } = require('../../util/mongoose');
+const { convertleObject } = require('../../util/mongoose');
 
 const dataT = [];
 
 
 Type.find({})
     .then(products => {
-        for (let index = 0; index < getArrayObjects(products).length; index++) {
-            dataT.push(getArrayObjects(products)[index].type);
+        for (let index = 0; index < convertleObject(products).length; index++) {
+            dataT.push(convertleObject(products)[index].type);
         }
     })
     .catch(err => console.log(err));
@@ -20,7 +19,7 @@ class ProductsController {
     index(req, res, next) {
         Product.find({})
             .then(products => {
-                res.render('products', { layout: 'home', products: getArrayObjects(products) });
+                res.render('products', { layout: 'home', products: convertleObject(products) });
             })
             .catch(next);
     }
@@ -28,7 +27,7 @@ class ProductsController {
     async detailProduct(req, res, next) {
         try {
             const product = await Product.findById(req.params._id).exec();
-            const objectFinded = getSingleObject(product);
+            const objectFinded = convertleObject(product);
 
             const selectedOptionObject = dataT.reduce(
                 (acc, option) => ({

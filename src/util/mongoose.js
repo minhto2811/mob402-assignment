@@ -1,10 +1,14 @@
 module.exports = {
-    getArrayObjects: function (mongoose) {
-        return mongoose.map(mongoose => mongoose.toObject());
-    },
 
-    getSingleObject: function (mongoose) {
-        return mongoose ? mongoose.toObject() : mongoose;
+
+    convertleObject: function (mongoose) {
+        if (!mongoose) {
+            return mongoose;
+        } else if (Array.isArray(mongoose)) {
+            return mongoose.map(m => m.toObject());
+        } else {
+            return mongoose.toObject();
+        }
     },
 
 }
