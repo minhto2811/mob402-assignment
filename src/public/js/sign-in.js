@@ -1,3 +1,5 @@
+
+
 // Tìm đến các phần tử HTML trong form
 const form = document.querySelector('.form');
 const emailInput = document.querySelector('#username');

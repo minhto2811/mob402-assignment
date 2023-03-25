@@ -1,24 +1,24 @@
 <div class="container">
-  <h2>Create new product</h2>
+  <h2>Thêm sản phẩm mới</h2>
   <form method="post" action="/products/store" enctype="multipart/form-data">
     <div class="form-group">
       <label for="code">Code:</label>
       <input type="text" class="form-control my-2" id="code" name="code" required>
     </div>
     <div class="form-group">
-      <label for="name" name="name">Name:</label>
+      <label for="name" name="name">Tên sản phẩm:</label>
       <input type="text" class="form-control my-2" id="name" name="name" required>
     </div>
     <div class="form-group">
-      <label for="price">Price:</label>
+      <label for="price">Đơn giá:</label>
       <input type="text" class="form-control my-2" id="price" name="price" required>
     </div>
     <div class="form-group">
-      <label for="image">Image:</label>
+      <label for="image" class="mb-2">Hình ảnh:</label>
       <input type="file" class="form-control my-2-file" id="image" name="image" required>
     </div>
     <div class="form-group">
-      <label for="color" name="color" required>Color:</label>
+      <label for="color" name="color" class="mt-2" required>Màu sắc:</label>
       <input type="text" class="form-control my-2" id="color" name="color" required>
     </div>
     <div class="form-group">
@@ -29,6 +29,6 @@
         {{/each}}
       </select>
     </div>
-    <button type="submit" class="btn btn-primary my-2">Create</button>
+    <button type="submit" class="btn btn-primary my-2">Thêm</button>
   </form>
 </div>
