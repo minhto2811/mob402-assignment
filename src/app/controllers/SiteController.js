@@ -1,10 +1,8 @@
+const { convertleObject } = require('../../util/mongoose');
 const User = require('../models/user');
 
-
 class SiteController {
-    home(req, res) {
-        res.render('home', { layout: 'home' });
-    }
+
     signIn(req, res) {
         res.render('sign-in');
     }
@@ -23,6 +21,35 @@ class SiteController {
         user.save().then(() => res.redirect('/sign-in'))
             .catch(next);
     }
+
+
+    async checkOut(req, res, next) {
+        const user = req.body.username;
+        const pass = req.body.password;
+        await User.findOne({ username: user, password: pass })
+            .then(users => {
+                if (users === null) {
+                    res.render('sign-in', { layout: 'main', err: "Tài khoản hoặc mật khẩu không chính xác!" });
+                } else {
+                    req.session.user = users;
+                    res.redirect('/home');
+                }
+
+            }).catch(next);
+
+    }
+
+
+    home(req, res, next) {
+        if (req.session.user != null) {
+            res.render('home', { layout: 'home', userM: req.session.user, type_eq_0: req.session.user.type === 0 });
+        } else {
+            res.redirect('/sign-in');
+        }
+    }
+
+
+
 
 
 

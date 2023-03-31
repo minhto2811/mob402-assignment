@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <div class="d-flex flex-row justify-content-around">
-
+        {{#if type_eq_0}}
         <div class="card col-3">
             <img src="/image/user.png" class="card-img-top  bg-success-subtle" alt="Lỗi hiển thị hình ảnh">
 
@@ -13,7 +13,7 @@
             </div>
         </div>
 
-
+        {{/if}}
         <div class="card col-3">
             <img src="/image/package.png" class="card-img-top bg-danger-subtle" alt="Lỗi hiển thị hình ảnh">
 
@@ -34,7 +34,7 @@
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                     card's
                     content.</p>
-                <a href="settings" class="btn btn-primary">Cài đặt tài khoản</a>
+                <a href="/users/{{userM._id}}" class="btn btn-primary">Cài đặt tài khoản</a>
             </div>
         </div>
     </div>

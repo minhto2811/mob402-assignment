@@ -10,6 +10,13 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
 
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
+
+const store = new MongoDBStore({
+    uri: 'mongodb://127.0.0.1:27017/mob402_assignment',
+    collection: 'mySessions'
+  });
 
 
 db.connect();
@@ -36,6 +43,14 @@ app.engine('hbs', expressHbs.engine({
 }));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+
+
+app.use(session({
+    secret: 'my secret',
+    resave: false,
+    saveUninitialized: false,
+    store: store
+  }));
 
 route(app);
 

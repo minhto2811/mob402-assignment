@@ -1,7 +1,9 @@
 <div class="container text-center">
 
     <h1 class="my-4">Danh sách sản phẩm</h1>
+    {{#if type_eq_0}}
     <a href="products/add-product">Thêm sản phẩm</a>
+    {{/if}}
 
     <table class="table table-striped table-bordered col-12 my-4">
         <thead>
@@ -13,7 +15,9 @@
                 <th>Hình ảnh</th>
                 <th>Màu sắc</th>
                 <th>Loại</th>
+                {{#if type_eq_0}}
                 <th>Hành động</th>
+                {{/if}}
             </tr>
         </thead>
         <tbody>
@@ -27,12 +31,14 @@
                 <td><img src="{{this.image}}" alt="Lỗi hình ảnh" width="60px" height="60px"></td>
                 <td>{{this.color}}</td>
                 <td>{{this.type}}</td>
+                {{#if type_eq_0}}
                 <td>
                     <button type="button" class="btn btn-danger btn-sm mr-2" data-bs-toggle="modal"
                         data-bs-target="#deleteModal" data-bs-id="{{this._id}}">Xóa</button>
                     <button type="button" class="btn btn-primary btn-sm ms-3"><a href="products/{{this._id}}"
                             class="btn-edit">Sửa</a></button>
                 </td>
+                {{/if}}
             </tr>
             {{/each}}
 

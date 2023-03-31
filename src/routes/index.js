@@ -1,12 +1,10 @@
 
 const usersRouter = require('./users.route');
 const productsRouter = require('./products.route');
-const settingsRouter = require('./settings.route');
 const siteRouter = require('./site.route');
 
 function route(app) {
     app.use('/users', usersRouter);
-    app.use('/settings', settingsRouter);
     app.use('/products', productsRouter);
     app.use('/', siteRouter);
 }

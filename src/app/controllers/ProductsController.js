@@ -19,7 +19,7 @@ class ProductsController {
     index(req, res, next) {
         Product.find({})
             .then(products => {
-                res.render('products', { layout: 'home', products: convertleObject(products) });
+                res.render('products', { layout: 'home', products: convertleObject(products), userM: req.session.user, type_eq_0: req.session.user.type == 0 });
             })
             .catch(next);
     }
@@ -36,7 +36,7 @@ class ProductsController {
                 }),
                 {}
             );
-            res.render('detail-product', { layout: 'home', product: objectFinded, selectedOption: selectedOptionObject, });
+            res.render('detail-product', { layout: 'home', product: objectFinded, selectedOption: selectedOptionObject, userM: req.session.user, type_eq_0: req.session.user.type === 0 });
         } catch (err) {
             res.send(err);
         }
@@ -50,7 +50,7 @@ class ProductsController {
             }),
             {}
         );
-        res.render('add-product', { layout: 'home', selectedOption: selectedOptionObject });
+        res.render('add-product', { layout: 'home', selectedOption: selectedOptionObject, userM: req.session.user, type_eq_0: req.session.user.type === 0 });
     }
 
     store(req, res, next) {
@@ -70,9 +70,9 @@ class ProductsController {
         }
         if (req.file !== undefined && req.file !== null) {
             formData.image = `/image/${req.file.originalname}`;
-          } else {
+        } else {
             formData.image = formData.old;
-          }
+        }
         delete formData.old;
         Product.updateOne({ _id: req.params._id }, formData)
             .then(() => res.redirect('/products'))

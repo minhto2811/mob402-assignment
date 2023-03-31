@@ -3,6 +3,8 @@ const router = express.Router();
 const siteController = require('../app/controllers/SiteController');
 const upload = require('../util/saveIMG');
 
+
+router.post('/check-account', siteController.checkOut);
 router.get('/home', siteController.home);
 router.get('/sign-in', siteController.signIn);
 router.get('/register', siteController.register);
