@@ -38,7 +38,7 @@ app.engine('hbs', expressHbs.engine({
     defaultLayout: 'main',
     partialsDir: path.join(__dirname, 'views/partials'),
     helpers: {
-        sum: (a, b) => a + b
+        sum: (a, b) => a + b,
     }
 }));
 app.set('view engine', 'hbs');
