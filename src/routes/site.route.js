@@ -6,6 +6,7 @@ const upload = require('../util/saveIMG');
 
 router.post('/check-account', siteController.checkOut);
 router.get('/home', siteController.home);
+router.get('/logout', siteController.logOut);
 router.get('/sign-in', siteController.signIn);
 router.get('/register', siteController.register);
 router.post('/registerCheckout', upload.single('avatar'), siteController.registercheckout);

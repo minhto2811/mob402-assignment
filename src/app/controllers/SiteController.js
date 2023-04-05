@@ -1,3 +1,4 @@
+const session = require('express-session');
 const { convertleObject } = require('../../util/mongoose');
 const User = require('../models/user');
 
@@ -46,6 +47,14 @@ class SiteController {
         } else {
             res.redirect('/sign-in');
         }
+    }
+
+    logOut(req, res, next) {
+        if (req.session.user != null) {
+            req.session.user = null;
+            req.session.destroy();
+        }
+        res.redirect('/sign-in');
     }
 
 
