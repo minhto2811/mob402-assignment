@@ -1,6 +1,7 @@
 const session = require('express-session');
 const { convertleObject } = require('../../util/mongoose');
 const User = require('../models/user');
+var bcrypt = require('bcrypt');
 
 class SiteController {
 
@@ -14,29 +15,56 @@ class SiteController {
         res.render('register');
     }
 
-    registercheckout(req, res, next) {
+    async registercheckout(req, res, next) {
         var object = req.body;
         object.image = `/image/${req.file.originalname}`;
         object.type = 1;
-        const user = new User(object);
-        user.save().then(() => res.redirect('/sign-in'))
-            .catch(next);
+        try {
+            await bcrypt.hash(object.password, 15, function (err, hash) {
+                object.password = hash;
+                const user = new User(object);
+                user.save().then(() => res.redirect('/sign-in'))
+                    .catch(next);
+            });
+        } catch (error) {
+            res.send(error);
+        }
+
+
+
     }
 
 
     async checkOut(req, res, next) {
         const user = req.body.username;
         const pass = req.body.password;
-        await User.findOne({ username: user, password: pass })
-            .then(users => {
-                if (users === null) {
-                    res.render('sign-in', { layout: 'main', err: "Tài khoản hoặc mật khẩu không chính xác!" });
-                } else {
-                    req.session.user = users;
-                    res.redirect('/home');
+        try {
+            const users = await User.findOne({ username: user });
+            if (users == null) {
+                console.log("null");
+                res.render('sign-in', { layout: 'main', err: "Tài khoản hoặc mật khẩu không chính xác!", username: req.body.username, password: req.body.password });
+            } else {
+                console.log("user dang nhap", users);
+                try {
+                    await bcrypt.compare(pass, users.password, function (err, result) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        if (result) {
+                            req.session.user = users;
+                            res.redirect('/home');
+                        } else {
+                            res.render('sign-in', { layout: 'main', err: "Tài khoản hoặc mật khẩu không chính xác!", username: req.body.username, password: req.body.password });
+                        }
+                    });
+                } catch (error) {
+                    console.log(error);
                 }
+            }
+        } catch (error) {
+            console.log(error);
+        }
 
-            }).catch(next);
 
     }
 

@@ -5,10 +5,10 @@ const upload = require('../util/saveIMG');
 const mdw = require('../util/midleware/checkUser.midleware');
 
 
-router.post('/', usersController.searchUser);
-router.put('/:_id', upload.single('image'), usersController.updateUser);
-router.get('/:_id', usersController.detailUser);
-router.delete('/:_id', usersController.deleteUser);
+router.post('/', mdw.check_type_user, usersController.searchUser);
+router.put('/:_id', mdw.check_user, upload.single('image'), usersController.updateUser);
+router.get('/:_id', mdw.check_user, usersController.detailUser);
+router.delete('/:_id', mdw.check_type_user, usersController.deleteUser);
 router.get('/', mdw.check_type_user, usersController.index);
 
 module.exports = router;

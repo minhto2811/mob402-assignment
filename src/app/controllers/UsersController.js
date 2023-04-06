@@ -68,8 +68,6 @@ class UserController {
                 } else {
                     res.render('users', { layout: 'home', users: convertleObject(users), valueSearch: req.body.email, userM: req.session.user, type_eq_0: req.session.user.type === 0 });
                 }
-
-
             }).catch(next);
 
     }
