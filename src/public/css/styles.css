@@ -1,12 +1,88 @@
-.navbar{
+.navbar {
     height: 50px;
 }
-.btn-edit{
+
+.btn-edit {
     text-decoration: none;
     color: white;
 }
-.label-id{
+
+.label-id {
     font-size: large;
     font-weight: bolder;
     background-color: aquamarine;
 }
+
+.item-login:hover {
+    text-decoration: underline;
+    color: brown;
+}
+
+/* trang home */
+.a {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.a a {
+    text-decoration: none;
+    align-self: center;
+    font-size: 46px;
+    font-weight: bolder;
+    font-family: "Lucida Console", "Courier New", monospace;
+    background: -webkit-linear-gradient(#e00303, #e4cd19, #0ade23);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.home {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(148, 112, 112, 1) 39%, rgba(0, 212, 255, 1) 82%);
+}
+
+.card {
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.type-product {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    z-index: 1;
+    background-color: #ff8585;
+    border-radius: 4px;
+    padding: 3px 0px;
+    width: 50px;
+    text-align: center;
+}
+
+.text-type-product{
+    color: #000000;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.info-product{
+    width: 250px;
+}
+.sold-product{
+    font-size: 11px;
+    color: rgb(71, 69, 69);
+    float: right;
+}
+.card-title{
+    margin-top: 8px;
+}
+
+button i {
+    font-size: 20px;
+    margin-right: 10px;
+  }
