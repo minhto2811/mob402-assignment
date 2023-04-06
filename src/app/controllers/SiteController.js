@@ -2,17 +2,18 @@ const session = require('express-session');
 const { convertleObject } = require('../../util/mongoose');
 const User = require('../models/user');
 var bcrypt = require('bcrypt');
+const Product = require('../models/product');
 
 class SiteController {
 
     signIn(req, res) {
-        res.render('sign-in');
+        res.render('sign-in',{layout:'home'});
     }
     forgotPassword(req, res) {
-        res.render('forgot-password');
+        res.render('forgot-password',{layout:'home'});
     }
     register(req, res) {
-        res.render('register');
+        res.render('register',{layout:'home'});
     }
 
     async registercheckout(req, res, next) {
@@ -42,7 +43,7 @@ class SiteController {
             const users = await User.findOne({ username: user });
             if (users == null) {
                 console.log("null");
-                res.render('sign-in', { layout: 'main', err: "Tài khoản hoặc mật khẩu không chính xác!", username: req.body.username, password: req.body.password });
+                res.render('sign-in', { layout: 'home', err: "Tài khoản hoặc mật khẩu không chính xác!", username: req.body.username, password: req.body.password });
             } else {
                 console.log("user dang nhap", users);
                 try {
@@ -54,7 +55,7 @@ class SiteController {
                             req.session.user = users;
                             res.redirect('/home');
                         } else {
-                            res.render('sign-in', { layout: 'main', err: "Tài khoản hoặc mật khẩu không chính xác!", username: req.body.username, password: req.body.password });
+                            res.render('sign-in', { layout: 'home', err: "Tài khoản hoặc mật khẩu không chính xác!", username: req.body.username, password: req.body.password });
                         }
                     });
                 } catch (error) {
@@ -70,11 +71,13 @@ class SiteController {
 
 
     home(req, res, next) {
-        if (req.session.user != null) {
-            res.render('home', { layout: 'home', userM: req.session.user, type_eq_0: req.session.user.type === 0 });
-        } else {
-            res.redirect('/sign-in');
-        }
+        Product.find({})
+            .then(products => {
+                const userM = req.session.user;
+                var type_eq_0 = userM ? (userM.type == 0) : false;
+                res.render('home', { layout: 'home', userM, type_eq_0, products: convertleObject(products) });
+            })
+            .catch(next);
     }
 
     logOut(req, res, next) {
@@ -84,11 +87,6 @@ class SiteController {
         }
         res.redirect('/sign-in');
     }
-
-
-
-
-
 
 }
 

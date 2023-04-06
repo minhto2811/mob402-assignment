@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const siteController = require('../app/controllers/SiteController');
 const upload = require('../util/saveIMG');
-
+const mdw = require('../util/midleware/checkUser.midleware');
 
 router.post('/check-account', siteController.checkOut);
 router.get('/home', siteController.home);

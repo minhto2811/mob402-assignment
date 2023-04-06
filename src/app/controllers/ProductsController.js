@@ -1,14 +1,24 @@
 const Product = require('../models/product');
 const Type = require('../models/type');
+const Status = require('../models/status');
 const { convertleObject } = require('../../util/mongoose');
 
 const dataT = [];
+const dataS = [];
 
 
 Type.find({})
     .then(products => {
         for (let index = 0; index < convertleObject(products).length; index++) {
             dataT.push(convertleObject(products)[index].type);
+        }
+    })
+    .catch(err => console.log(err));
+
+Status.find({})
+    .then(sta => {
+        for (let index = 0; index < convertleObject(sta).length; index++) {
+            dataS.push(convertleObject(sta)[index].status);
         }
     })
     .catch(err => console.log(err));
@@ -29,14 +39,29 @@ class ProductsController {
             const product = await Product.findById(req.params._id).exec();
             const objectFinded = convertleObject(product);
 
-            const selectedOptionObject = dataT.reduce(
+            const selectedOptionType = dataT.reduce(
                 (acc, option) => ({
                     ...acc,
                     [option]: option === objectFinded.type,
                 }),
                 {}
             );
-            res.render('detail-product', { layout: 'home', product: objectFinded, selectedOption: selectedOptionObject, userM: req.session.user, type_eq_0: req.session.user.type === 0 });
+
+            const selectedOptionStatus = dataS.reduce(
+                (acc, option) => ({
+                    ...acc,
+                    [option]: option === objectFinded.status,
+                }),
+                {}
+            );
+            res.render('detail-product', {
+                layout: 'home',
+                product: objectFinded,
+                selectedOptionType,
+                userM: req.session.user,
+                type_eq_0: req.session.user.type === 0,
+                selectedOptionStatus
+            });
         } catch (err) {
             res.send(err);
         }

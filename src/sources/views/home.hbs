@@ -1,41 +1,26 @@
-<div class="container mt-5">
-    <div class="d-flex flex-row justify-content-around">
-        {{#if type_eq_0}}
-        <div class="card col-3">
-            <img src="/image/user.png" class="card-img-top  bg-success-subtle" alt="Lỗi hiển thị hình ảnh">
-
-            <div class="card-body">
-                <h5 class="card-title">Người dùng</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.</p>
-                <a href="users" class="btn btn-primary">Quản lí người dùng</a>
+<div class="container-fluid home">
+    <div>
+        <p class="a"><a href="#">SẢN PHẨM NỔI BẬT</a></p>
+    </div>
+    <div class="row">
+        <div class="row d-flex justify-content-around">
+            {{#each products}}
+            <div class="card align-items-center col-5 col-md-4 col-lg-3 my-3" style="width: 18rem;">
+                <img src="{{this.image}}" class="card-img-top" alt="Lỗi" style="width: 240px;height: 270px;">
+                <div class="card-body">
+                    <div class="type-product">
+                        <span class="text-type-product">{{this.type}}</span>
+                    </div>
+                    <span class="sold-product">Đã bán: {{this.sold}}</span>
+                    <h5 class="card-title">{{this.name}}</h5>
+                    <div class="info-product">
+                        <p style="padding-top: 5px;font-weight: bold;color: red;" class="card-text">{{this.price}}</p>
+                        <p class="card-text">{{this.describe}}</p>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success"><i class="fa-sharp fa-solid fa-cart-circle-plus" style="color: #ffffff;"></i>Thêm vào giỏ hàng</button>
             </div>
-        </div>
-
-        {{/if}}
-        <div class="card col-3">
-            <img src="/image/package.png" class="card-img-top bg-danger-subtle" alt="Lỗi hiển thị hình ảnh">
-
-            <div class="card-body">
-                <h5 class="card-title">Sản phẩm</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.</p>
-                <a href="products" class="btn btn-primary">Quản lí sản phẩm</a>
-            </div>
-        </div>
-
-        <div class="card col-3">
-            <img src="/image/settings.png" class="card-img-top  bg-warning-subtle" alt="Lỗi hiển thị hình ảnh">
-
-            <div class="card-body">
-                <h5 class="card-title">Thiết lập</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.</p>
-                <a href="/users/{{userM._id}}" class="btn btn-primary">Cài đặt tài khoản</a>
-            </div>
+            {{/each}}
         </div>
     </div>
 </div>

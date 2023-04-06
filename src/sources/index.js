@@ -57,5 +57,5 @@ route(app);
 
 app.listen(port, () => {
     // console.log('##path : ', path.join(__dirname, ''));
-    console.log('server run http://localhost:3000/sign-in')
+    console.log('server run http://localhost:3000/home')
 });
