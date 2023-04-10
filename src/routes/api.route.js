@@ -9,11 +9,12 @@ const { check_token, check_token_id } = require('../util/midleware/checkToken.mi
 router.post('/users/profile', apiController.profile);
 router.post('/users/login', apiController.login);
 router.post('/users/update/:_id', check_token_id, apiController.updateUser);
+router.post('/users/delete/:_id', check_token_id, apiController.deleteUser);
 router.post('/users/register', apiController.register);
-
+router.post('/users', check_token, apiController.getUsers);
 
 router.get('/users/logout', apiController.logout);
-router.get('/users', apiController.getUsers);
+
 
 
 
@@ -22,7 +23,7 @@ router.get('/users', apiController.getUsers);
 router.get('/products', apiController.getProducts);
 router.post('/products/:_id', check_token, apiController.detailProduct);
 router.post('/products/update/:_id', check_token, apiController.updateProduct);
-router.delete('/products/delete/:_id', check_token, apiController.deleteProduct);
+router.post('/products/delete/:_id', check_token, apiController.deleteProduct);
 
 
 router.post('/products', apiController.addProduct);

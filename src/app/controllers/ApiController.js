@@ -69,48 +69,54 @@ class ApiController {
             .catch(err => res.json({ err: "Cập nhật thất bại!" }));
     }
 
+    deleteUser(req, res, next) {
+        const id = req.params._id;
+        console.log("id muon xoa:", id);
+        User.deleteOne({ _id: req.params._id })
+            .then(() => res.json({ msg: "Xóa thành công" }))
+            .catch(err => res.json({ err: "Xóa thất bại!" }));
+    }
+
 
 
     logout(req, res, next) {
 
     }
 
-    getUsers(req, res, next) {
-
+    async getUsers(req, res, next) {
+        try {
+            const user = await User.find({});
+            res.json(user);
+        } catch (err) {
+            res.json({ err: "Không tải được dữ liệu!" })
+        }
     }
 
-    async register(req, res, next) {
-        try {
-            const user = req.body.user;
-            console.log("user nhan dc:", user)
-            const valid = await User.findOne({ username: user.username }).exec();
-            if (!valid) {
-                console.log("1");
-                 bcrypt.hash(user.password, 15, function (err, hash) {
-                    if (err) {
-                        console.log(err);
-                        throw err;
-                    }
-                    user.password = hash;
-                    console.log("pass new :", user.password);
-                    User.create(user)
-                        .then(user => {
-                            console.log('User created:', user);
-                            res.json({ msg: "Tạo tài khoản thành công" });
-                        })
-                        .catch(error => {
-                            console.error('Error creating user:', error);
-                            res.json({ err: "Tạo tài khoản thất bại!" });
-                        });
-                });
-
-            } else {
-                res.json({ err: "Tài khoản đã tồn tại" });
-            }
-        } catch (error) {
-            res.json({ err: "Đã có lỗi xảy ra!" });
+    register(req, res, next) {
+        const user = req.body.user;
+        console.log("user nhan dc:", user)
+        if (Object.keys(user).length === 0) {
+            console.log('Object is empty');
+            res.json({ err: "Server không lấy được thông tin!" });
+            return;
         }
-
+        bcrypt.hash(user.password, 15, function (err, hash) {
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+            user.password = hash;
+            console.log("pass new :", user.password);
+            User.create(user)
+                .then(user => {
+                    console.log('User created:', user);
+                    res.json({ msg: "Tạo tài khoản thành công" });
+                })
+                .catch(error => {
+                    console.error('Error creating user:', error);
+                    res.json({ err: "Tài khoản đã tồn tại!" });
+                });
+        });
     }
 
     async getProducts(req, res, next) {
@@ -118,7 +124,7 @@ class ApiController {
             const products = await Product.find({});
             res.json(products)
         } catch (err) {
-            res.josn({ err: "Không tải được dữ liệu!" })
+            res.json({ err: "Không tải được dữ liệu!" })
         }
     }
 
@@ -137,17 +143,11 @@ class ApiController {
     }
 
     deleteProduct(req, res, next) {
-        res.json({ id: req.params._id });
-        // Product.deleteOne({ _id: req.params._id }, (err, result) => {
-        //     if (err) {
-        //         res.json({ err: "Xóa thất bại!" })
-        //     }
-        //     if (result) {
-        //         res.json({ msg: "Xóa thành công" })
-        //     }
-        // });
-
-
+        const id = req.params._id;
+        console.log("id muon xoa:", id);
+        Product.deleteOne({ _id: req.params._id })
+            .then(() => res.json({ msg: "Xóa thành công" }))
+            .catch(err => res.json({ err: "Xóa thất bại!" }));
     }
 
     detailProduct(req, res, next) {
@@ -156,7 +156,7 @@ class ApiController {
             Product.findById(id).then((prod) => {
                 res.json(prod);
             }).catch((err) => {
-                res.jon({ err: "Không tải được dữ liệu sản phẩm!" });
+                res.json({ err: "Không tải được dữ liệu sản phẩm!" });
             });
         }
     }
