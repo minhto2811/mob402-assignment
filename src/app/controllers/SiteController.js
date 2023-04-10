@@ -7,13 +7,13 @@ const Product = require('../models/product');
 class SiteController {
 
     signIn(req, res) {
-        res.render('sign-in',{layout:'home'});
+        res.render('sign-in', { layout: 'home' });
     }
     forgotPassword(req, res) {
-        res.render('forgot-password',{layout:'home'});
+        res.render('forgot-password', { layout: 'home' });
     }
     register(req, res) {
-        res.render('register',{layout:'home'});
+        res.render('register', { layout: 'home' });
     }
 
     async registercheckout(req, res, next) {
@@ -59,14 +59,12 @@ class SiteController {
                         }
                     });
                 } catch (error) {
-                    console.log(error);
+                    res.render('sign-in', { layout: 'home', err: "Hãy đăng nhập lại", username: req.body.username, password: req.body.password });
                 }
             }
         } catch (error) {
             console.log(error);
         }
-
-
     }
 
 
