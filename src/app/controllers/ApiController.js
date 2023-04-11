@@ -100,6 +100,20 @@ class ApiController {
             res.json({ err: "Server không lấy được thông tin!" });
             return;
         }
+        // const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // const regex1 = /^\d{10}$/;
+        // const regex2 = /^\d{4}-\d{2}-\d{2}$/;
+        // if (!(user.fullname.length > 0) ||
+        //     !(user.username.length > 0) ||
+        //     !(user.password.length > 0) ||
+        //     !(user.type.length > 0) ||
+        //     !(user.address.length > 0) ||
+        //     !regex.test(user.email) ||
+        //     !regex1.test(user.phone) ||
+        //     !regex2.test(user.date)) {
+        //     res.json({ msg: "Thông tin không hợp lệ!" });
+        //     return;
+        // }
         bcrypt.hash(user.password, 15, function (err, hash) {
             if (err) {
                 console.log(err);
@@ -118,6 +132,9 @@ class ApiController {
                 });
         });
     }
+
+
+
 
     async getProducts(req, res, next) {
         try {

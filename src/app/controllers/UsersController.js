@@ -21,7 +21,12 @@ class UserController {
         try {
             const user = await User.findById(id).exec();
             console.log(req.session.user);
-            res.render('detail-user', { layout: 'home', user: convertleObject(user), userM: req.session.user, type_eq_0: req.session.user.type === 0 });
+            if (user) {
+                res.render('detail-user', { layout: 'home', user: convertleObject(user), userM: req.session.user, type_eq_0: req.session.user.type === 0 });
+            } else {
+                res.redirect('/sign-in');
+            }
+
         } catch (err) {
             console.error(err);
             res.send(err);
